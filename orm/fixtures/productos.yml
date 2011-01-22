@@ -1,0 +1,9 @@
+Producto:
+  Producto_1:
+    nombre: "Pollo con Papas"
+    #descripcion: "Prueba"
+    precio: 0
+  Producto_2:
+    nombre: "Sushi"
+    #descripcion: "Prueba"
+    precio: 0

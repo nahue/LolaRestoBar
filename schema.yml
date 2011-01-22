@@ -1,0 +1,106 @@
+Producto:
+  columns:
+    id:
+      primary: true
+      type: integer(10)
+      notnull: true
+      autoincrement: true
+    nombre:
+      type: string(25)
+    descripcion:
+      type: string(266)
+    precio:
+      type: float(5)
+  indexes:
+    IX_Nombre:
+      fields: [nombre]
+  relations:
+    Categorias:
+      class: Categoria
+      refClass: CategoriasProductos
+      local: Producto_id
+      foreign: Categoria_id
+Categoria:
+  columns:
+    id:
+      primary: true
+      type: integer(10)
+      notnull: true
+      autoincrement: true
+    parent_id:
+      type: integer(10)
+      notnull: true
+    nombre:
+      type: string(25)
+      notnull: true
+    descripcion:
+      type: string(255)
+      notnull: true
+  indexes:
+    IX_Parent_id:
+      fields: [parent_id]
+    IX_Nombre:
+      fields: [nombre]
+  relations:
+    Productos:
+      class: Producto
+      refClass: CategoriasProductos
+      local: Categoria_id
+      foreign: Producto_id
+Usuario:
+  actAs:
+    Timestampable: 
+  columns:
+    id:
+      primary: true
+      type: integer(11)
+      notnull: true
+      autoincrement: true
+    password:
+      type: string(40)
+      notnull: true
+    username:
+      unique: true
+      type: string(255)
+      notnull: true
+    group_id:
+      type: integer(11)
+  relations:
+    group:
+      class: Grupo
+      foreignAlias: users
+      local: group_id
+      foreign: id
+Grupo:
+  actAs:
+    Timestampable: 
+  columns:
+    id:
+      primary: true
+      type: integer(11)
+      notnull: true
+      autoincrement: true
+    name:
+      type: string(100)
+      notnull: true
+CategoriasProductos:
+  columns:
+    ID:
+      primary: true
+      unique: true
+      type: integer
+      notnull: true
+      autoincrement: true
+    Categoria_id:
+      type: integer(10)
+      notnull: true
+    Producto_id:
+      type: integer(10)
+      notnull: true
+  relations:
+    Categoria:
+      local: Categoria_id
+      foreign: id
+    Producto:
+      local: Producto_id
+      foreign: id

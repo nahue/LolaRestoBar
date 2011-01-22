@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<orm-designer version="1.4.3.454">
+
+  <module import-format="DoctrineYml" import-path="schema\schema.yml" name="Application" visBkColor="15989236" visSizeX="6" visSizeX2="1084" visSizeY="-1" visSizeY2="900">
+    <region caption="CodeIgniter" name="Region1" visBkColor="16185850" visPositionX="626" visPositionY="48" visSizeX="0" visSizeX2="242" visSizeY="0" visSizeY2="220"/>
+    <region caption="Ion_Auth" name="Region3" visBkColor="16577522" visPositionX="44" visPositionY="346" visSizeX="0" visSizeX2="326" visSizeY="0" visSizeY2="504"/>
+    <table name="Producto" visPositionX="421" visPositionY="63" visSizeX="0" visSizeX2="128" visSizeY="0" visSizeY2="73">
+      <column auto-increment="true" name="id" primary="true" required="true" size="10" type="integer"/>
+      <column name="nombre" size="25" type="string"/>
+      <column name="vigencia" type="date"/>
+      <column name="precio" size="5" type="float"/>
+      <index name="IX_Nombre" unique="false">
+        <index-column name="nombre"/>
+      </index>
+    </table>
+    <table name="Categoria" visPositionX="135" visPositionY="26" visSizeX="0" visSizeX2="128" visSizeY="0" visSizeY2="73">
+      <column auto-increment="true" name="id" primary="true" required="true" size="10" type="integer"/>
+      <column name="parent_id" required="true" size="10" type="integer"/>
+      <column name="nombre" required="true" size="25" type="string"/>
+      <column name="descripcion" required="true" size="255" type="string"/>
+      <index name="IX_Parent_id" unique="false">
+        <index-column name="parent_id"/>
+      </index>
+      <index name="IX_Nombre" unique="false">
+        <index-column name="nombre"/>
+      </index>
+    </table>
+    <table name="CategoriasProductos" visPositionX="333" visPositionY="230" visSizeX="0" visSizeX2="133" visSizeY="0" visSizeY2="74">
+      <column auto-increment="true" name="ID" primary="true" required="true" type="integer" unique="true"/>
+      <column name="Categoria_id" required="true" size="10" type="integer"/>
+      <column name="Producto_id" required="true" size="10" type="integer"/>
+    </table>
+    <table name="cisessions" region="Region1" visPositionX="31" visPositionY="53" visSizeX="0" visSizeX2="133" visSizeY="0" visSizeY2="87">
+      <column default="0" name="session_id" primary="true" required="true" size="40" type="string"/>
+      <column default="0" name="ip_address" required="true" size="16" type="string"/>
+      <column name="user_agent" required="true" size="150" type="string"/>
+      <column default="0" name="last_activity" required="true" size="10" type="integer"/>
+      <column name="user_data" required="true" type="string"/>
+      <orm-properties>
+        <attribute name="tableName">ci_sessions</attribute>
+        <attribute name="options">
+          <attribute name="collate">utf8_bin</attribute>
+          <attribute name="charset">utf8</attribute>
+        </attribute>
+      </orm-properties>
+    </table>
+    <table name="Groups" region="Region3" visPositionX="26" visPositionY="49" visSizeX="0" visSizeX2="126" visSizeY="0" visSizeY2="59">
+      <column auto-increment="true" name="id" primary="true" required="true" size="8" type="integer"/>
+      <column name="name" required="true" size="20" type="string"/>
+      <column name="description" required="true" size="100" type="string"/>
+    </table>
+    <table name="Meta" region="Region3" visPositionX="24" visPositionY="142" visSizeX="0" visSizeX2="121" visSizeY="0" visSizeY2="101">
+      <column auto-increment="true" name="id" primary="true" required="true" size="8" type="integer"/>
+      <column default="NULL" name="first_name" size="50" type="string"/>
+      <column default="NULL" name="last_name" size="50" type="string"/>
+      <column default="NULL" name="company" size="100" type="string"/>
+      <column default="NULL" name="phone" size="20" type="string"/>
+      <column name="user_id" size="8" type="integer" unique="true"/>
+    </table>
+    <table name="Users" region="Region3" visPositionX="47" visPositionY="285" visSizeX="0" visSizeX2="20" visSizeY="0" visSizeY2="20">
+      <column auto-increment="true" name="id" primary="true" required="true" size="8" type="integer"/>
+      <column name="ip_address" required="true" size="16" type="integer"/>
+      <column name="username" required="true" size="15" type="string"/>
+      <column name="password" required="true" size="40" type="string"/>
+      <column default="NULL" name="salt" size="40" type="string"/>
+      <column name="email" required="true" size="100" type="string"/>
+      <column default="NULL" name="activation_code" size="40" type="string"/>
+      <column default="NULL" name="forgotten_password_code" size="40" type="string"/>
+      <column default="NULL" name="remember_code" size="40" type="string"/>
+      <column name="created_on" required="true" size="11" type="integer"/>
+      <column default="NULL" name="last_login" size="11" type="integer"/>
+      <column default="NULL" name="active" size="1" type="integer"/>
+      <column name="group_id" size="8" type="integer"/>
+    </table>
+    <table name="Agencia" visPositionX="36" visPositionY="127" visSizeX="0" visSizeX2="103" visSizeY="0" visSizeY2="31">
+      <column name="codigo" size="20" type="string"/>
+    </table>
+    <foreign-key caption="Categoria CategoriasProductos" from="CategoriasProductos" name="FK_CategoriasProductos_Categoria_id" to="Categoria">
+      <foreign-key-column from="Categoria_id" to="id"/>
+    </foreign-key>
+    <foreign-key caption="Producto CategoriasProductos" from="CategoriasProductos" name="FK_CategoriasProductos_Producto_id" to="Producto">
+      <foreign-key-column from="Producto_id" to="id"/>
+    </foreign-key>
+    <foreign-key caption="Users Meta" from="Meta" name="FK_Meta_Users_id" to="Users">
+      <foreign-key-column from="user_id" to="id"/>
+    </foreign-key>
+    <foreign-key caption="Groups Users" from="Users" name="FK_Users_Groups_id" to="Groups">
+      <foreign-key-column from="group_id" to="id"/>
+    </foreign-key>
+    <many-to-many-relation mn-table="CategoriasProductos">
+      <many-to-many-foreign-key foreign-key="FK_CategoriasProductos_Categoria_id" relation-alias="Categorias"/>
+      <many-to-many-foreign-key foreign-key="FK_CategoriasProductos_Producto_id" relation-alias="Productos"/>
+    </many-to-many-relation>
+  </module>
+
+</orm-designer>

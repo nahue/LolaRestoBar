@@ -1,0 +1,184 @@
+Producto:
+  columns:
+    id:
+      primary: true
+      type: integer(10)
+      notnull: true
+      autoincrement: true
+    nombre:
+      type: string(25)
+    vigencia:
+      type: date
+    precio:
+      type: float(5)
+  indexes:
+    IX_Nombre:
+      fields: [nombre]
+  relations:
+    Categorias:
+      class: Categoria
+      refClass: CategoriasProductos
+      local: Producto_id
+      foreign: Categoria_id
+Categoria:
+  columns:
+    id:
+      primary: true
+      type: integer(10)
+      notnull: true
+      autoincrement: true
+    parent_id:
+      type: integer(10)
+      notnull: true
+    nombre:
+      type: string(25)
+      notnull: true
+    descripcion:
+      type: string(255)
+      notnull: true
+  indexes:
+    IX_Parent_id:
+      fields: [parent_id]
+    IX_Nombre:
+      fields: [nombre]
+  relations:
+    Productos:
+      class: Producto
+      refClass: CategoriasProductos
+      local: Categoria_id
+      foreign: Producto_id
+CategoriasProductos:
+  columns:
+    ID:
+      primary: true
+      unique: true
+      type: integer
+      notnull: true
+      autoincrement: true
+    Categoria_id:
+      type: integer(10)
+      notnull: true
+    Producto_id:
+      type: integer(10)
+      notnull: true
+  relations:
+    Categoria:
+      local: Categoria_id
+      foreign: id
+    Producto:
+      local: Producto_id
+      foreign: id
+cisessions:
+  tableName: ci_sessions
+  options:
+    collate: utf8_bin
+    charset: utf8
+  columns:
+    session_id:
+      default: 0
+      primary: true
+      type: string(40)
+      notnull: true
+    ip_address:
+      default: 0
+      type: string(16)
+      notnull: true
+    user_agent:
+      type: string(150)
+      notnull: true
+    last_activity:
+      default: 0
+      type: integer(10)
+      notnull: true
+    user_data:
+      type: string
+      notnull: true
+Groups:
+  columns:
+    id:
+      primary: true
+      type: integer(8)
+      notnull: true
+      autoincrement: true
+    name:
+      type: string(20)
+      notnull: true
+    description:
+      type: string(100)
+      notnull: true
+Meta:
+  columns:
+    id:
+      primary: true
+      type: integer(8)
+      notnull: true
+      autoincrement: true
+    first_name:
+      default: NULL
+      type: string(50)
+    last_name:
+      default: NULL
+      type: string(50)
+    company:
+      default: NULL
+      type: string(100)
+    phone:
+      default: NULL
+      type: string(20)
+    user_id:
+      unique: true
+      type: integer(8)
+  relations:
+    Users:
+      local: user_id
+      foreign: id
+Users:
+  columns:
+    id:
+      primary: true
+      type: integer(8)
+      notnull: true
+      autoincrement: true
+    ip_address:
+      type: integer(16)
+      notnull: true
+    username:
+      type: string(15)
+      notnull: true
+    password:
+      type: string(40)
+      notnull: true
+    salt:
+      default: NULL
+      type: string(40)
+    email:
+      type: string(100)
+      notnull: true
+    activation_code:
+      default: NULL
+      type: string(40)
+    forgotten_password_code:
+      default: NULL
+      type: string(40)
+    remember_code:
+      default: NULL
+      type: string(40)
+    created_on:
+      type: integer(11)
+      notnull: true
+    last_login:
+      default: NULL
+      type: integer(11)
+    active:
+      default: NULL
+      type: integer(1)
+    group_id:
+      type: integer(8)
+  relations:
+    Groups:
+      local: group_id
+      foreign: id
+Agencia:
+  columns:
+    codigo:
+      type: string(20)

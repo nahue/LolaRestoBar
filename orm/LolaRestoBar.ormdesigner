@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<orm-designer version="1.4.3.454">
+
+  <include name="schema.module.xml"/>
+
+  <project code-name="LolaRestoBar" framework="Without Framework" name="LolaRestoBar" orm="Doctrine" visSizeX="17" visSizeX2="1232" visSizeY="31" visSizeY2="968">
+    <module-position name="Application" visPositionX="98" visPositionY="18"/>
+  </project>
+
+</orm-designer>

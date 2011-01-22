@@ -1,0 +1,15 @@
+CREATE TABLE categoria (id BIGINT AUTO_INCREMENT, parent_id BIGINT NOT NULL, nombre VARCHAR(25) NOT NULL, descripcion VARCHAR(255) NOT NULL, INDEX IX_Parent_id_idx (parent_id), INDEX IX_Nombre_idx (nombre), PRIMARY KEY(id)) ENGINE = INNODB;
+CREATE TABLE categorias_productos (id BIGINT UNIQUE AUTO_INCREMENT, categoria_id BIGINT NOT NULL, producto_id BIGINT NOT NULL, INDEX categoria_id_idx (categoria_id), INDEX producto_id_idx (producto_id), PRIMARY KEY(id)) ENGINE = INNODB;
+CREATE TABLE grupo (id BIGINT AUTO_INCREMENT, name VARCHAR(100) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) ENGINE = INNODB;
+CREATE TABLE login_attempts (id BIGINT AUTO_INCREMENT, ip_address VARCHAR(40) NOT NULL, login VARCHAR(50) NOT NULL, time DATETIME NOT NULL, PRIMARY KEY(id)) ENGINE = INNODB;
+CREATE TABLE producto (id BIGINT AUTO_INCREMENT, nombre VARCHAR(25), descripcion TEXT, precio FLOAT(5, 2), INDEX IX_Nombre_idx (nombre), PRIMARY KEY(id)) ENGINE = INNODB;
+CREATE TABLE user_autologin (key_id VARCHAR(32), user_agent VARCHAR(150) NOT NULL, last_ip VARCHAR(40) NOT NULL, last_login DATETIME, user_id BIGINT, INDEX user_id_idx (user_id), PRIMARY KEY(key_id)) ENGINE = INNODB;
+CREATE TABLE user_profiles (id BIGINT AUTO_INCREMENT, user_id BIGINT NOT NULL, country VARCHAR(20), website VARCHAR(255), INDEX user_id_idx (user_id), PRIMARY KEY(id)) ENGINE = INNODB;
+CREATE TABLE users (id BIGINT AUTO_INCREMENT, username VARCHAR(50) NOT NULL, password VARCHAR(255) NOT NULL, email VARCHAR(100) NOT NULL, activated TINYINT DEFAULT 1 NOT NULL, banned TINYINT DEFAULT 0 NOT NULL, ban_reason VARCHAR(255) NOT NULL, new_password_key VARCHAR(50), new_password_request DATETIME, new_email VARCHAR(100), new_email_key VARCHAR(50), last_ip VARCHAR(40) NOT NULL, last_login DATETIME NOT NULL, created_at DATETIME, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) ENGINE = INNODB;
+CREATE TABLE usuario (id BIGINT AUTO_INCREMENT, password VARCHAR(40) NOT NULL, username VARCHAR(255) NOT NULL UNIQUE, group_id BIGINT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX group_id_idx (group_id), PRIMARY KEY(id)) ENGINE = INNODB;
+CREATE TABLE ci_sessions (session_id VARCHAR(40), ip_address VARCHAR(16) DEFAULT '0' NOT NULL, user_agent VARCHAR(150) NOT NULL, last_activity BIGINT DEFAULT 0 NOT NULL, user_data TEXT NOT NULL, PRIMARY KEY(session_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ENGINE = INNODB;
+ALTER TABLE categorias_productos ADD CONSTRAINT categorias_productos_producto_id_producto_id FOREIGN KEY (producto_id) REFERENCES producto(id);
+ALTER TABLE categorias_productos ADD CONSTRAINT categorias_productos_categoria_id_categoria_id FOREIGN KEY (categoria_id) REFERENCES categoria(id);
+ALTER TABLE user_autologin ADD CONSTRAINT user_autologin_user_id_users_id FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE user_profiles ADD CONSTRAINT user_profiles_user_id_users_id FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE usuario ADD CONSTRAINT usuario_group_id_grupo_id FOREIGN KEY (group_id) REFERENCES grupo(id);

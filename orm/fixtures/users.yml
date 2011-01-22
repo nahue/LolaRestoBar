@@ -1,0 +1,14 @@
+Users:
+  Users_1:
+    id: 1
+    group_id: 1
+    ip_address: 127.0.0.1
+    username: admin
+    password: 59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4
+    salt: 9462e8eee0
+    email: admin@admin.com
+    activation_code: ''
+    forgotten_password_code: NULL
+    created_on: 1268889823
+    last_login: 1268889823
+    active: 1
