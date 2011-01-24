@@ -1,6 +1,6 @@
 <h1>Administrar Menús</h1>
 
-
+<?= $this->session->flashdata('mensaje'); ?>
 <table class="normal tablesorter fullwidth">
     <thead>
         <tr>
