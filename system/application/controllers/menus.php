@@ -74,10 +74,10 @@ class Menus extends Mi_Controlador
                     $producto = new Producto();
                     $producto->fromArray($form_data);
                     $producto->save();
+
                     $this->session->set_flashdata('mensaje', "Usuario creado correctamente");
                     
                     redirect("menus","refresh");
-                    //$this->load->view("menus/agregadoCorrectamente", $data);
                 }
 
             }
