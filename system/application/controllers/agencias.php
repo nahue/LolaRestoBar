@@ -27,9 +27,12 @@ class Agencias extends Mi_Controlador {
             {
                 $this->datos["codigo"] = $agencia["codigo"];
             }
-            
+            /*
             $this->template->title("Agencias de Turismo");
             $this->template->build("agencias",$this->datos);
+            */
+            
+            $this->load->view('agencias', $this->datos);
         } else {
             //$agencia = new Agencia();
             if (!$agencia)

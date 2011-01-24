@@ -38,7 +38,9 @@ $usuario = get_object_vars($this->ion_auth->get_user());
         <script type='text/javascript' src='<?= RUTA_TPL ?>js/jquery.cleditor.min.js'></script> <!-- wysiwyg editor -->
 
         <script type='text/javascript' src='<?= RUTA_TPL ?>js/custom.js'></script> <!-- the "make them work" script -->
-
+        <!--
+        <script type='text/javascript' src='<?= RUTA_TPL ?>js/links.js'></script> 
+        -->
         <script type="text/javascript">
             $ = jQuery;
             $(document).ready(function(){
@@ -63,7 +65,8 @@ $usuario = get_object_vars($this->ion_auth->get_user());
                     <p style="width:95%; text-align:center; color: #CCCCCC">
                         Bienvenido <br />
 
-                        <a href="<?= site_url('usuarios/change_password') ?>" title="Click aqui para cambiar la contraseña" class="tooltip"><?= $usuario["first_name"] . " " . $usuario["last_name"] ?></a>
+                        <a href="<?= site_url('usuarios/change_password') ?>" title="Click aqui para cambiar la contraseña" class="tooltip"><?= $usuario["first_name"] .
+" " . $usuario["last_name"] ?></a>
                         -
                         <a href="<?= site_url('usuarios/logout') ?>">Salir</a>
 
@@ -75,7 +78,7 @@ $usuario = get_object_vars($this->ion_auth->get_user());
 
 
 
-                            <li id="escritorio"><a href="<?= site_url() ?>" class="dashboard"><img src="<?= RUTA_TPL ?>assets/icons/small_icons_3/dashboard.png" alt="" /><span class="current">Escritorio</span></a></li>
+                            <li id="escritorio"><a href="<?= site_url('escritorio/inicio') ?>" class="dashboard"><img src="<?= RUTA_TPL ?>assets/icons/small_icons_3/dashboard.png" alt="" /><span class="current">Escritorio</span></a></li>
                             <li id="menus"><a href="<?= site_url('menus') ?>" class="dashboard"><img src="<?= RUTA_TPL ?>assets/icons/3_48x48.png" alt="" /><span class="current">Menús</span></a></li>
 
                             <!--
@@ -90,8 +93,13 @@ $usuario = get_object_vars($this->ion_auth->get_user());
                             <li class="tooltip" title="Menu items can also have a tooltip!"><a href="#"><img src="<?= RUTA_TPL ?>assets/icons/small_icons_3/notes.png" alt="" /><span>My notes</span></a></li>
                             <li><a href="#"><img src="<?= RUTA_TPL ?>assets/icons/small_icons_3/coin.png" alt="" /><span>Earnings</span></a></li>
                             -->
-                            <li id="usuarios"><a href="<?= site_url('usuarios') ?>"><img src="<?= RUTA_TPL ?>assets/icons/small_icons_3/users.png" alt="" /><span>Usuarios</span></a></li>
-                            <li id="agencias"><a href="<?= site_url('agencias') ?>"><img src="<?= RUTA_TPL ?>assets/icons/small_icons_3/users.png" alt="" /><span>Agencias</span></a></li>
+                            <li id="usuarios">
+                                <a href="<?= site_url('usuarios') ?>"><img src="<?= RUTA_TPL ?>assets/icons/small_icons_3/users.png" alt="" /><span>Usuarios</span></a>
+                                <ul style="display:block;">
+                                    <li><a href="<?= site_url('agencias') ?>">Agencias</a></li>    
+                                </ul>
+                            </li>
+                            
 
                             <!--
                             <li><a href="#"><img src="<?= RUTA_TPL ?>assets/icons/small_icons_3/settings.png" alt="" /><span>Settings</span></a></li>
@@ -109,12 +117,13 @@ $usuario = get_object_vars($this->ion_auth->get_user());
                         <div class="clearboth"></div>
                         <p style="clear:both">
                             <?php
-                            if ($this->router->fetch_class() != "escritorio")
-                                echo set_breadcrumb();
-                            ?>
+if ($this->router->fetch_class() != "escritorio")
+    echo set_breadcrumb();
+?>
                         </p>
-
+                        <div id="contenido">
                         <?php echo $template['body']; ?>
+                        </div>
                     </div>
                 </div> <!-- primary_right -->
             </div> <!-- bgwrap -->

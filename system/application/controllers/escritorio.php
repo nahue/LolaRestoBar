@@ -12,7 +12,14 @@ class Escritorio extends Mi_Controlador
 
     function index()
     {
+
         $this->template->title('Escritorio');
         $this->template->build('escritorio');
+
+    }
+    
+    function inicio()
+    {
+        $this->load->view("escritorio");
     }
 }

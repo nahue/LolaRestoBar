@@ -30,8 +30,8 @@ class Usuarios extends Controller {
             //redirect them to the home page because they must be an administrator to view this
             redirect($this->config->item('base_url'), 'refresh');
         } else {
-            $this->template->set_layout('main');
 
+            $this->template->set_layout("main");
             
             //set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
@@ -42,6 +42,7 @@ class Usuarios extends Controller {
 
             $this->template->title('Usuarios');
             $this->template->build('usuarios/index', $this->data);
+           
         }
     }
 
@@ -243,7 +244,6 @@ class Usuarios extends Controller {
 
     //create a new user
     function create_user() {
-        $this->template->set_layout('main');
         $this->data['title'] = "Create User";
 
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
@@ -274,14 +274,18 @@ class Usuarios extends Controller {
                 'phone' => $this->input->post('phone'),
             );
         }
-        if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data)) { //check to see if we are creating the user
+        if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data)) { 
+            //check to see if we are creating the user
             //redirect them back to the admin page
-            $this->session->set_flashdata('message', "User Created");
+            $this->session->set_flashdata('message', "Usuario creado correctamente");
             redirect("usuarios", 'refresh');
+
+            
         } else { //display the create user form
             //set the flash data error message if there is one
-            $this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+            //$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
+            $this->data['message'] = ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message'));
             $this->data['username'] = array('name' => 'username',
                 'id' => 'username',
                 'type' => 'text',
@@ -322,7 +326,7 @@ class Usuarios extends Controller {
                 'type' => 'password',
                 'value' => $this->form_validation->set_value('password_confirm'),
             );
-            $this->template->title('Crear Usuario');
+            
             $this->template->build('usuarios/create_user', $this->data);
             //$this->load->view('usuarios/create_user', $this->data);
         }

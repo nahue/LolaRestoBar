@@ -31,5 +31,3 @@
     </table>
 
 <?php echo anchor("/usuarios/create_user", "Crear un Usuario",array('class' => 'button_link')); ?>
-
-

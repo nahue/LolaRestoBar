@@ -22,12 +22,9 @@ class Menus extends Mi_Controlador
         $productos = $producto->getAll();
 
         $datos = array('productos' => $productos);
+        
+        $this->template->build('menus',$datos);
 
-        // $this->load->view('productos', $datos);
-
-
-        $this->template->title('Listar Productos');
-        $this->template->build('menus', $datos);
     }
 
     function agregar()
@@ -48,6 +45,7 @@ class Menus extends Mi_Controlador
         
             $this->template->title('Agregar producto');
             $this->template->build('menus/agregar',$this->datos);
+            //$this->load->view("menus/agregar",$this->datos);
 
         } else {
             $form_data = array(
@@ -70,12 +68,14 @@ class Menus extends Mi_Controlador
                 if (!$this->upload->do_upload()) {
                     $this->datos["error"] = $this->upload->display_errors();
                     $this->template->build('menus/agregar', $this->datos);
+                    //$this->load->view("menus/agregar",$this->datos);
                 } else {
                     $data = array('upload_data' => $this->upload->data());
                     $producto = new Producto();
                     $producto->fromArray($form_data);
                     $producto->save();
                     $this->template->build("menus/agregadoCorrectamente", $data);
+                    //$this->load->view("menus/agregadoCorrectamente", $data);
                 }
 
             }

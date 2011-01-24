@@ -16,19 +16,27 @@ window.onscroll = function()
 function initMenu() {
     jQuery('#menu ul ul').hide();
 	jQuery('#menu ul li').click(function() {
+	    
+        
 		jQuery(this).parent().find("ul").slideUp('fast');
 		jQuery(this).parent().find("li").removeClass("current");
 		jQuery(this).find("ul").slideToggle('fast');
 		jQuery(this).toggleClass("current");
+        
+        
   });
 }
- 
+
+
  
 jQuery(document).ready(function() {
 	
+ 
+    
 	Cufon.replace('h1, h2, h5, .notification strong', { hover: 'true' }); // Cufon font replacement
 	initMenu(); // Initialize the menu!
 	
+
 	jQuery(".tablesorter").tablesorter(); // Tablesorter plugin
 			
 	jQuery('#dialog').dialog({

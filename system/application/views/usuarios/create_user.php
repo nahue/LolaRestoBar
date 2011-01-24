@@ -1,9 +1,9 @@
 
 
 <h1>Crear Usuario</h1>
-<!--
+
 <div id="infoMessage"><?php echo $message; ?></div>
--->
+
 <?php echo form_open("usuarios/create_user"); ?>
 <fieldset>
     <legend>Complete los datos.</legend>
